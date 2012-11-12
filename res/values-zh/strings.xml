@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="title_section3">交易</string>
+    <string name="title_section2">技术</string>
+    <string name="title_section1">热门</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_refresh">刷新</string>
+
+</resources>
