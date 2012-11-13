@@ -2,53 +2,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     android:id="@+id/listview_root" >
     
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="73dp"
-        android:layout_height="73dp"
-        android:layout_gravity="left|center_vertical"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginRight="8dp"
+
+        android:background="@drawable/bg_border"
         />
  
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="title"
-        
+        android:text="title"      
         android:singleLine="true"
         android:layout_toRightOf="@id/avatar"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="username"
-        
-        android:singleLine="true"
-        android:layout_toRightOf="@id/avatar"
-        android:layout_alignBottom="@id/avatar"
-        android:textStyle="bold"/>
+	<LinearLayout android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_toRightOf="@id/avatar"
+	        android:layout_alignBottom="@id/avatar"
+	        android:orientation="horizontal"
+	    >
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/username"
-        android:layout_alignParentRight="true"
-        android:text="time"
-        />
-        
-    <TextView 
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="content"
-        
-        android:singleLine="false"
-        android:layout_below="@id/avatar"
-        />
+		<TextView
+	        android:id="@+id/username"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="username"	        
+	        android:singleLine="true"	        
+	        android:textStyle="bold"
+	        />
 
+	    <TextView 
+	        android:id="@+id/node"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="node"	        
+	        android:singleLine="true"
+	        android:gravity="center_horizontal"
+	        />
+	
+	    <TextView
+	        android:id="@+id/time"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"	        	        
+	        android:text="time"
+	        android:singleLine="true"
+	        android:gravity="right"
+	        />"
+	        
+
+	</LinearLayout>
+    
 </RelativeLayout>

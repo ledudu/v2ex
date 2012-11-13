@@ -7,6 +7,7 @@ import java.util.TimeZone;
 
 import org.wzy.v2exbean.MessageBean;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,10 +21,12 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 	
 	private ArrayList<MessageBean> mMessages;
 	protected LayoutInflater inflater;
+	private Fragment mFragment;
 	
 	public LatestTopicsDataAdapter(Fragment fragment, ArrayList<MessageBean> messages) {
 		mMessages = messages;
-		inflater = fragment.getActivity().getLayoutInflater();		
+		inflater = fragment.getActivity().getLayoutInflater();
+		mFragment = fragment;
 	}
 
 	@Override
@@ -58,7 +61,11 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 		}
 
 		ImageView avatar = (ImageView) convertView.findViewById(R.id.avatar);
-		avatar.setBackgroundResource(R.drawable.avatar);
+		//avatar.setBackgroundResource(R.drawable.avatar);
+		if (!((LatestFragment)mFragment).isListViewFling()) {
+			Log.i("wzy1", "setImageDrawable");
+			avatar.setImageDrawable(parent.getResources().getDrawable(R.drawable.ic_launcher));
+		}
 		TextView username = (TextView) convertView.findViewById(R.id.username);
 		if (mMessages != null) {
 			String name = mMessages.get(position).getMember().getUserName();			
@@ -71,15 +78,17 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 			titleView.setText(title);
 		}
 		
-		TextView content = (TextView) convertView.findViewById(R.id.content);
+		TextView content = (TextView) convertView.findViewById(R.id.node);
 		if (mMessages != null) {
-			String messageContent = mMessages.get(position).getContent();			
+			String messageContent = mMessages.get(position).getNode().getName();			
 			content.setText(messageContent);
 		}
+	
 		TextView time = (TextView) convertView.findViewById(R.id.time);
 		if (mMessages != null) {
 			String messageTime = mMessages.get(position).getCreated();
-			Date date = new Date(Long.parseLong(messageTime) * 1000);
+			time.setText(formatString(parent.getContext(), Long.parseLong(messageTime)));
+			/*Date date = new Date(Long.parseLong(messageTime) * 1000);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
 			//String createTime = calendar.getDisplayName(Calendar.MINUTE,
@@ -98,10 +107,39 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 			sb.append(":");
 			appendTwoDigits(sb, calendar.get(Calendar.SECOND));
 			
-			time.setText(sb.toString());
+			time.setText(sb.toString());*/
 		}
 
 		return convertView;
+	}
+	
+	private final long YEAR = 365 * 24 * 60 * 60;
+	private final long MONTH = 30 * 24 * 60 * 60;
+	private final long DAY = 24 * 60 * 60;
+	private final long HOUR = 60 * 60;
+	private final long MINUTE = 60;
+	private final long SECOND = 1;
+	
+	private String formatString(Context context, final long time) {
+		String formatTime;		
+		long delta = System.currentTimeMillis() / 1000 - time;
+		Log.i("wzy", "delta:" + delta + ", month:" + MONTH + ", n:" + delta/MONTH);
+		if (delta > YEAR) {
+			formatTime = String.format(context.getString(R.string.year), delta/YEAR);
+		} else if (delta > MONTH) {
+			formatTime = String.format(context.getString(R.string.month), delta/MONTH);
+		} else if (delta > DAY) {
+			formatTime = String.format(context.getString(R.string.day), delta/DAY);
+		} else if (delta > HOUR) {
+			formatTime = String.format(context.getString(R.string.hour), delta/HOUR);
+		} else if (delta > MINUTE) {
+			formatTime = String.format(context.getString(R.string.minute), delta/MINUTE);
+		} else if (delta >SECOND) {
+			formatTime = String.format(context.getString(R.string.second), delta/SECOND);
+		} else {
+			formatTime = context.getString(R.string.current);
+		}
+		return formatTime;
 	}
 	
 	private void appendTwoDigits(StringBuilder sb, int n) {

@@ -6,5 +6,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">设置</string>
     <string name="menu_refresh">刷新</string>
-
+	<string name="year">%d年前</string>
+	<string name="month">%d月前</string>
+	<string name="day">%d天前</string>
+	<string name="hour">%d小时前</string>
+	<string name="minute">%d分钟前</string>
+	<string name="second">%d秒钟前</string>
+	<string name="current">刚刚</string>
 </resources>

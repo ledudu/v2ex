@@ -1,14 +1,13 @@
 package org.wzy.v2ex;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import org.wzy.http.HttpMethod;
-import org.wzy.http.HttpUtility;
 import org.wzy.support.MyAsyncTask;
 import org.wzy.v2exbean.MessageBean;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -33,6 +33,7 @@ public class LatestFragment extends Fragment {
 	ArrayList<MessageBean> mMessages = null;
 	protected MenuItem refreshView;
 	protected ImageView iv;
+	private volatile boolean enableRefreshTime = true;
 	
 	public LatestFragment() {
     }
@@ -49,9 +50,44 @@ public class LatestFragment extends Fragment {
     	View view = inflator.inflate(R.layout.listview_layout, container, false);
     	ListView list = (ListView) view.findViewById(R.id.v2ex_listView);
     	
+		
     	v2exAdapter = new LatestTopicsDataAdapter(this, mMessages);
     	
     	list.setAdapter(v2exAdapter);
+    	
+    	list.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				switch (scrollState) {
+
+				case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+					Log.i("wzy1", "SCROLL_STATE_IDLE");
+					if (!enableRefreshTime) {
+						Log.i("wzy1", "in SCROLL_STATE_IDLE");
+						enableRefreshTime = true;
+						getAdapter().notifyDataSetChanged();
+					}
+
+					break;
+
+				case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+					Log.i("wzy1", "SCROLL_STATE_FLING");
+					enableRefreshTime = false;
+					break;
+
+				case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+					Log.i("wzy1", "SCROLL_STATE_TOUCH_SCROLL");
+					enableRefreshTime = true;
+					break;
+
+				}
+			}
+			
+			@Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+		});
     	
     	newTask = new TimeLineGetNewMsgListTask();
     	newTask.execute();
@@ -92,21 +128,36 @@ public class LatestFragment extends Fragment {
     		Gson gson = new Gson();    		 
     		Type type = new TypeToken<ArrayList<MessageBean>>() {}.getType();
     		messages = gson.fromJson(json, type);
-    		mMessages.clear();
-    		mMessages.addAll(messages);
+    		if (mMessages != null) {
+    			mMessages.clear();
+    			mMessages.addAll(messages);
+    		}
     		for (MessageBean message : mMessages) {
-    			Log.i("wzy1", message.getTitle() + ", " + message.getMember().getUserName());
+    			Log.i("wzy", message.getTitle() + ", " + message.getMember().getUserName());
     		}
     	} catch (JsonSyntaxException e) {
-    		Log.w("wzy1", e.getMessage());
+    		Log.w("wzy", e.getMessage());
     	}
     	return mMessages;
     }
 
     private String loadJson() {
-    	String url = "http://www.v2ex.com/api/topics/latest.json";
-    	String json = HttpUtility.getInstance().executeNormalTask(HttpMethod.Get, url);
-    	Log.i("wzy1", "loadJson:\n" + json);
+    	/*String url = "http://www.v2ex.com/api/topics/latest.json";
+    	String json = HttpUtility.getInstance().executeNormalTask(HttpMethod.Get, url);*/
+    	String json = null;
+    	try {
+    		InputStream in = getActivity().getAssets().open("latest.json");
+    		int size = in.available();
+    		
+    		byte []buffer = new byte[size];
+    		in.read(buffer);
+    		in.close();
+    		
+    		json = new String(buffer);
+    		Log.i("wzy", "loadJson:\n" + json);
+    	} catch (IOException e) {
+    		throw new RuntimeException(e);
+    	}
     	return json;
     }
     
@@ -150,5 +201,13 @@ public class LatestFragment extends Fragment {
     	 }
     	 
     };
+    
+    private LatestTopicsDataAdapter getAdapter() {
+    	return v2exAdapter;
+    }
+    
+    public boolean isListViewFling() {
+    	return !enableRefreshTime;
+    }
     
 }
