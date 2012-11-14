@@ -1,6 +1,14 @@
-V2EX Android ¿Í»§¶Ë
+ï»¿V2EX Android å®¢æˆ·ç«¯
+======
 
-²Î¿¼ËÄ´ÎÔª´úÂë£¬V2EX Android¿Í»§¶Ë¡£
-ËÄ´ÎÔª   ºÃÓÃµÄweibo¿Í»§¶Ë(https://github.com/qii/weiciyuan)
-google playÏÂÔØ:https://play.google.com/store/apps/details?id=org.qii.weiciyuan
-V2EX ´´Òâ¹¤×÷ÕßÃÇµÄÉçÇø(http://www.v2ex.com)
+ä»£ç å®ç°
+---------
+å‚è€ƒå››æ¬¡å…ƒä»£ç ï¼ŒV2EX Androidå®¢æˆ·ç«¯ã€‚
+
+V2EX åˆ›æ„å·¥ä½œè€…ä»¬çš„ç¤¾åŒº(http://www.v2ex.com)
+
+å››æ¬¡å…ƒ
+---------
+å››æ¬¡å…ƒ   å¥½ç”¨çš„weiboå®¢æˆ·ç«¯(https://github.com/qii/weiciyuan)
+
+google playä¸‹è½½:https://play.google.com/store/apps/details?id=org.qii.weiciyuan

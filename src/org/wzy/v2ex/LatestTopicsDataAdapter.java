@@ -88,26 +88,6 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 		if (mMessages != null) {
 			String messageTime = mMessages.get(position).getCreated();
 			time.setText(formatString(parent.getContext(), Long.parseLong(messageTime)));
-			/*Date date = new Date(Long.parseLong(messageTime) * 1000);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			//String createTime = calendar.getDisplayName(Calendar.MINUTE,
-			//		Calendar.SHORT, Locale.CHINA);
-			//time.setText("12:34");
-			StringBuilder sb = new StringBuilder();
-			sb.append(calendar.get(Calendar.YEAR));
-			sb.append(" ");
-			sb.append(calendar.get(Calendar.MONTH));
-			sb.append(" ");
-			sb.append(calendar.get(Calendar.DAY_OF_MONTH));
-			sb.append(" ");
-			appendTwoDigits(sb, calendar.get(Calendar.HOUR_OF_DAY));
-			sb.append(":");
-			appendTwoDigits(sb, calendar.get(Calendar.MINUTE));
-			sb.append(":");
-			appendTwoDigits(sb, calendar.get(Calendar.SECOND));
-			
-			time.setText(sb.toString());*/
 		}
 
 		return convertView;

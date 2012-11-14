@@ -1,10 +1,10 @@
 package org.wzy.v2ex;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import org.wzy.http.HttpMethod;
+import org.wzy.http.HttpUtility;
 import org.wzy.support.MyAsyncTask;
 import org.wzy.v2exbean.MessageBean;
 
@@ -128,7 +128,7 @@ public class LatestFragment extends Fragment {
     		Gson gson = new Gson();    		 
     		Type type = new TypeToken<ArrayList<MessageBean>>() {}.getType();
     		messages = gson.fromJson(json, type);
-    		if (mMessages != null) {
+    		if (mMessages != null && messages != null) {
     			mMessages.clear();
     			mMessages.addAll(messages);
     		}
@@ -142,9 +142,9 @@ public class LatestFragment extends Fragment {
     }
 
     private String loadJson() {
-    	/*String url = "http://www.v2ex.com/api/topics/latest.json";
-    	String json = HttpUtility.getInstance().executeNormalTask(HttpMethod.Get, url);*/
-    	String json = null;
+    	String url = "http://www.v2ex.com/api/topics/latest.json";
+    	String json = HttpUtility.getInstance().executeNormalTask(HttpMethod.Get, url);
+    	/*String json = null;
     	try {
     		InputStream in = getActivity().getAssets().open("latest.json");
     		int size = in.available();
@@ -157,7 +157,7 @@ public class LatestFragment extends Fragment {
     		Log.i("wzy", "loadJson:\n" + json);
     	} catch (IOException e) {
     		throw new RuntimeException(e);
-    	}
+    	}*/
     	return json;
     }
     
