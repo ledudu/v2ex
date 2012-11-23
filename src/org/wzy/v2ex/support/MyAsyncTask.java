@@ -1,4 +1,4 @@
-package org.wzy.support;
+package org.wzy.v2ex.support;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.BlockingQueue;

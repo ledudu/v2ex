@@ -1,18 +1,18 @@
-package org.wzy.adapter;
+package org.wzy.v2ex.adapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.wzy.bean.MessageBean;
 import org.wzy.v2ex.R;
 import org.wzy.v2ex.R.drawable;
 import org.wzy.v2ex.R.id;
 import org.wzy.v2ex.R.layout;
 import org.wzy.v2ex.R.string;
+import org.wzy.v2ex.bean.MessageBean;
+import org.wzy.v2ex.timeline.LatestTimeLineFragment;
 
-import timeline.LatestTimeLineFragment;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

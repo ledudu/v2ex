@@ -1,4 +1,4 @@
-package org.wzy.utils;
+package org.wzy.v2ex.utils;
 
 /**
  * Wrapper API for sending log output.

@@ -1,19 +1,19 @@
-package timeline;
+package org.wzy.v2ex.timeline;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import org.wzy.adapter.LatestTopicsDataAdapter;
-import org.wzy.bean.MessageBean;
-import org.wzy.http.HttpMethod;
-import org.wzy.http.HttpUtility;
-import org.wzy.support.MyAsyncTask;
-import org.wzy.utils.AppLogger;
 import org.wzy.v2ex.R;
 import org.wzy.v2ex.R.anim;
 import org.wzy.v2ex.R.id;
 import org.wzy.v2ex.R.layout;
 import org.wzy.v2ex.R.menu;
+import org.wzy.v2ex.adapter.LatestTopicsDataAdapter;
+import org.wzy.v2ex.bean.MessageBean;
+import org.wzy.v2ex.http.HttpMethod;
+import org.wzy.v2ex.http.HttpUtility;
+import org.wzy.v2ex.support.MyAsyncTask;
+import org.wzy.v2ex.utils.AppLogger;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

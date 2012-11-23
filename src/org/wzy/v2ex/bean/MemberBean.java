@@ -1,4 +1,4 @@
-package org.wzy.bean;
+package org.wzy.v2ex.bean;
 
 public class MemberBean {
 	public String getId() {

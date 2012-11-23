@@ -1,7 +1,7 @@
 package org.wzy.v2ex;
 
-import timeline.LatestTimeLineFragment;
-import timeline.LatestTimeLineFragment.TimeLineGetNewMsgListTask;
+import org.wzy.v2ex.timeline.LatestTimeLineFragment;
+import org.wzy.v2ex.timeline.LatestTimeLineFragment.TimeLineGetNewMsgListTask;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

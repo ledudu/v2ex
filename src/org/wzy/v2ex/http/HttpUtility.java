@@ -1,11 +1,11 @@
-package org.wzy.http;
+package org.wzy.v2ex.http;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.wzy.utils.AppLogger;
+import org.wzy.v2ex.utils.AppLogger;
 
 import android.util.Log;
 import ch.boye.httpclientandroidlib.HttpEntity;
