@@ -1,11 +1,18 @@
-package org.wzy.v2ex;
+package org.wzy.adapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.wzy.v2exbean.MessageBean;
+import org.wzy.bean.MessageBean;
+import org.wzy.v2ex.R;
+import org.wzy.v2ex.R.drawable;
+import org.wzy.v2ex.R.id;
+import org.wzy.v2ex.R.layout;
+import org.wzy.v2ex.R.string;
+
+import timeline.LatestTimeLineFragment;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -32,8 +39,7 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		if (mMessages != null) {
-			Log.i("wzy", "getCount:" + mMessages.size());
+		if (mMessages != null) {			
 			return mMessages.size();			
 		}
 		return 0;
@@ -52,9 +58,7 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		Log.i("wzy", "getView: positon:" + position + ", convertView:"
-				+ convertView + ", parent:" + parent);
+		// TODO Auto-generated method stub		
 		if (convertView == null) {
 			convertView = inflater.inflate(
 					R.layout.listview_item_latest_layout, parent, false);
@@ -62,8 +66,7 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 
 		ImageView avatar = (ImageView) convertView.findViewById(R.id.avatar);
 		//avatar.setBackgroundResource(R.drawable.avatar);
-		if (!((LatestFragment)mFragment).isListViewFling()) {
-			Log.i("wzy1", "setImageDrawable");
+		if (!((LatestTimeLineFragment)mFragment).isListViewFling()) {			
 			avatar.setImageDrawable(parent.getResources().getDrawable(R.drawable.ic_launcher));
 		}
 		TextView username = (TextView) convertView.findViewById(R.id.username);
@@ -102,8 +105,7 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 	
 	private String formatString(Context context, final long time) {
 		String formatTime;		
-		long delta = System.currentTimeMillis() / 1000 - time;
-		Log.i("wzy", "delta:" + delta + ", month:" + MONTH + ", n:" + delta/MONTH);
+		long delta = System.currentTimeMillis() / 1000 - time;		
 		if (delta > YEAR) {
 			formatTime = String.format(context.getString(R.string.year), delta/YEAR);
 		} else if (delta > MONTH) {
@@ -120,13 +122,6 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 			formatTime = context.getString(R.string.current);
 		}
 		return formatTime;
-	}
-	
-	private void appendTwoDigits(StringBuilder sb, int n) {
-		if (n < 10) {
-			sb.append('0');
-		}
-		sb.append(n);
 	}
 	
 	public static class ViewHolder {

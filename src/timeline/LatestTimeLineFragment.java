@@ -1,16 +1,22 @@
-package org.wzy.v2ex;
+package timeline;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import org.wzy.adapter.LatestTopicsDataAdapter;
+import org.wzy.bean.MessageBean;
 import org.wzy.http.HttpMethod;
 import org.wzy.http.HttpUtility;
 import org.wzy.support.MyAsyncTask;
-import org.wzy.v2exbean.MessageBean;
+import org.wzy.utils.AppLogger;
+import org.wzy.v2ex.R;
+import org.wzy.v2ex.R.anim;
+import org.wzy.v2ex.R.id;
+import org.wzy.v2ex.R.layout;
+import org.wzy.v2ex.R.menu;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-public class LatestFragment extends Fragment {
+public class LatestTimeLineFragment extends Fragment {
 	
 	LatestTopicsDataAdapter v2exAdapter;
 	TimeLineGetNewMsgListTask newTask;
@@ -35,7 +41,7 @@ public class LatestFragment extends Fragment {
 	protected ImageView iv;
 	private volatile boolean enableRefreshTime = true;
 	
-	public LatestFragment() {
+	public LatestTimeLineFragment() {
     }
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
@@ -60,23 +66,18 @@ public class LatestFragment extends Fragment {
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				switch (scrollState) {
 
-				case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-					Log.i("wzy1", "SCROLL_STATE_IDLE");
-					if (!enableRefreshTime) {
-						Log.i("wzy1", "in SCROLL_STATE_IDLE");
+				case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:					
+					if (!enableRefreshTime) {						
 						enableRefreshTime = true;
 						getAdapter().notifyDataSetChanged();
 					}
-
 					break;
 
-				case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-					Log.i("wzy1", "SCROLL_STATE_FLING");
+				case AbsListView.OnScrollListener.SCROLL_STATE_FLING:					
 					enableRefreshTime = false;
 					break;
 
-				case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-					Log.i("wzy1", "SCROLL_STATE_TOUCH_SCROLL");
+				case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:					
 					enableRefreshTime = true;
 					break;
 
@@ -97,8 +98,7 @@ public class LatestFragment extends Fragment {
     }
     
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    	Log.i("wzy", "onCreateOptionsMenu");
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {    	
     	super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.latest_fragment_menu, menu);
         refreshView = menu.findItem(R.id.menu_refresh);
@@ -107,8 +107,7 @@ public class LatestFragment extends Fragment {
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_refresh:
-			Log.i("wzy", "refresh");
+		case R.id.menu_refresh:			
 			if (newTask == null || newTask.getStatus() == MyAsyncTask.Status.FINISHED) {
 				newTask = new TimeLineGetNewMsgListTask();
 				newTask.execute();
@@ -131,12 +130,9 @@ public class LatestFragment extends Fragment {
     		if (mMessages != null && messages != null) {
     			mMessages.clear();
     			mMessages.addAll(messages);
-    		}
-    		for (MessageBean message : mMessages) {
-    			Log.i("wzy", message.getTitle() + ", " + message.getMember().getUserName());
-    		}
+    		}    		
     	} catch (JsonSyntaxException e) {
-    		Log.w("wzy", e.getMessage());
+    		AppLogger.w(e.getMessage());
     	}
     	return mMessages;
     }
@@ -167,7 +163,7 @@ public class LatestFragment extends Fragment {
 	    		iv.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.refresh));
 	    		refreshView.setActionView(iv);
 	    	} else {
-	    		Log.w("wzy", "ImageView parse error");
+	    		AppLogger.w("ImageView parse error");
 	    	}
     	}
     }
@@ -187,15 +183,13 @@ public class LatestFragment extends Fragment {
         }
         
     	 @Override
-         protected ArrayList<MessageBean> doInBackground(Object... params) {
-    		Log.i("wzy", "doInBackground");
+         protected ArrayList<MessageBean> doInBackground(Object... params) {    		
     		parseJson(loadJson());    		
     		return mMessages;
          }
     	 
     	 @Override
-    	 protected void onPostExecute(ArrayList<MessageBean> newvalue) {
-    		 Log.i("wzy", "onPostExecute:" + newvalue.toString());
+    	 protected void onPostExecute(ArrayList<MessageBean> newvalue) {    		 
     		 v2exAdapter.notifyDataSetChanged();
     		 completeRefresh();
     	 }

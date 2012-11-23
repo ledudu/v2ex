@@ -1,4 +1,4 @@
-package org.wzy.v2exbean;
+package org.wzy.bean;
 
 public class NodeBean {
 	public String getId() {

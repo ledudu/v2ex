@@ -1,6 +1,7 @@
 package org.wzy.v2ex;
 
-import org.wzy.v2ex.LatestFragment.TimeLineGetNewMsgListTask;
+import timeline.LatestTimeLineFragment;
+import timeline.LatestTimeLineFragment.TimeLineGetNewMsgListTask;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -67,13 +68,13 @@ public class MainActivity extends FragmentActivity {
         	Fragment fragment = null;
         	switch (i) {
         	case 0:
-        		fragment = new LatestFragment();
+        		fragment = new LatestTimeLineFragment();
         		break;
         	case 1:
         	case 2:
         		fragment = new DummySectionFragment();
         		Bundle args = new Bundle();
-                args.putInt(LatestFragment.ARG_SECTION_NUMBER, i + 1);
+                args.putInt(LatestTimeLineFragment.ARG_SECTION_NUMBER, i + 1);
                 fragment.setArguments(args);
                 break;
         	}

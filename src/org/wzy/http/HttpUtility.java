@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.wzy.utils.AppLogger;
 
 import android.util.Log;
 import ch.boye.httpclientandroidlib.HttpEntity;
@@ -97,9 +98,9 @@ public class HttpUtility {
 		try {
 			uriBuilder = new URIBuilder(url);
 			httpGet.setURI(uriBuilder.build());
-			Log.i("wzy1", "doGet " + uriBuilder.build().toString());
+			
 		} catch (URISyntaxException e) {
-			Log.w("wzy1", "doGet " + e.getMessage());
+			AppLogger.w("doGet " + e.getMessage());
 		}
 		
 		CookieStore cookieStore = new BasicCookieStore();
@@ -128,13 +129,13 @@ public class HttpUtility {
                 response = httpClient.execute(httpRequest);
             }
         } catch (ConnectTimeoutException e) {
-        	Log.w("wzy1", "getHttpResponse " + e.getMessage());
+        	AppLogger.w("getHttpResponse " + e.getMessage());
         	httpRequest.abort();
         } catch (ClientProtocolException e) {
-        	Log.w("wzy1", "getHttpResponse " + e.getMessage());
+        	AppLogger.w("getHttpResponse " + e.getMessage());
         	httpRequest.abort();
         } catch (IOException e) {
-        	Log.w("wzy1", "getHttpResponse " + e.getMessage());
+        	AppLogger.w("getHttpResponse " + e.getMessage());
         	httpRequest.abort();
         }
 		return response;
@@ -159,11 +160,9 @@ public class HttpUtility {
             result = EntityUtils.toString(entity);
             EntityUtils.consume(entity);
         } catch (IOException e) {
-        	Log.w("wzy1", e.getMessage());
+        	AppLogger.w(e.getMessage());
         }
-		
-		Log.i("wzy1", result);
-		
+
 		return result;
 	}
 	
