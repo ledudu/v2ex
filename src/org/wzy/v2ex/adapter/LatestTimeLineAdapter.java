@@ -1,22 +1,14 @@
 package org.wzy.v2ex.adapter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 import org.wzy.v2ex.R;
-import org.wzy.v2ex.R.drawable;
-import org.wzy.v2ex.R.id;
-import org.wzy.v2ex.R.layout;
-import org.wzy.v2ex.R.string;
 import org.wzy.v2ex.bean.MessageBean;
-import org.wzy.v2ex.timeline.LatestTimeLineFragment;
-
+import org.wzy.v2ex.interfaces.ICommander;
+import org.wzy.v2ex.timeline.LatestTimeLine;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +16,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LatestTopicsDataAdapter extends BaseAdapter {
+public class LatestTimeLineAdapter extends BaseAdapter {
 	
 	private ArrayList<MessageBean> mMessages;
 	protected LayoutInflater inflater;
 	private Fragment mFragment;
+	private ICommander mCommander;
 	
-	public LatestTopicsDataAdapter(Fragment fragment, ArrayList<MessageBean> messages) {
+	public LatestTimeLineAdapter(Fragment fragment, ArrayList<MessageBean> messages, ICommander commander) {
 		mMessages = messages;
 		inflater = fragment.getActivity().getLayoutInflater();
 		mFragment = fragment;
+		mCommander = commander;
 	}
 
 	@Override
@@ -65,10 +59,13 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 		}
 
 		ImageView avatar = (ImageView) convertView.findViewById(R.id.avatar);
+		mCommander.downloadAvatar(avatar, mMessages.get(position).getMember().getAvatarNormal(),
+				position,
+				((LatestTimeLine)mFragment).isListViewFling());
 		//avatar.setBackgroundResource(R.drawable.avatar);
-		if (!((LatestTimeLineFragment)mFragment).isListViewFling()) {			
-			avatar.setImageDrawable(parent.getResources().getDrawable(R.drawable.ic_launcher));
-		}
+		//if (!((LatestTimeLine)mFragment).isListViewFling()) {			
+		//	avatar.setImageDrawable(parent.getResources().getDrawable(R.drawable.ic_launcher));
+		//}
 		TextView username = (TextView) convertView.findViewById(R.id.username);
 		if (mMessages != null) {
 			String name = mMessages.get(position).getMember().getUserName();			
@@ -130,5 +127,4 @@ public class LatestTopicsDataAdapter extends BaseAdapter {
 		TextView content;
 		TextView time;
 	}
-
 }

@@ -3,12 +3,9 @@ package org.wzy.v2ex.timeline;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import org.wzy.v2ex.MainActivity;
 import org.wzy.v2ex.R;
-import org.wzy.v2ex.R.anim;
-import org.wzy.v2ex.R.id;
-import org.wzy.v2ex.R.layout;
-import org.wzy.v2ex.R.menu;
-import org.wzy.v2ex.adapter.LatestTopicsDataAdapter;
+import org.wzy.v2ex.adapter.LatestTimeLineAdapter;
 import org.wzy.v2ex.bean.MessageBean;
 import org.wzy.v2ex.http.HttpMethod;
 import org.wzy.v2ex.http.HttpUtility;
@@ -32,16 +29,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-public class LatestTimeLineFragment extends Fragment {
+public class LatestTimeLine extends Fragment {
 	
-	LatestTopicsDataAdapter v2exAdapter;
+	LatestTimeLineAdapter v2exAdapter;
 	TimeLineGetNewMsgListTask newTask;
 	ArrayList<MessageBean> mMessages = null;
 	protected MenuItem refreshView;
 	protected ImageView iv;
 	private volatile boolean enableRefreshTime = true;
 	
-	public LatestTimeLineFragment() {
+	public LatestTimeLine() {
     }
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
@@ -57,7 +54,7 @@ public class LatestTimeLineFragment extends Fragment {
     	ListView list = (ListView) view.findViewById(R.id.v2ex_listView);
     	
 		
-    	v2exAdapter = new LatestTopicsDataAdapter(this, mMessages);
+    	v2exAdapter = new LatestTimeLineAdapter(this, mMessages, ((MainActivity)getActivity()).getCommander());
     	
     	list.setAdapter(v2exAdapter);
     	
@@ -150,7 +147,7 @@ public class LatestTimeLineFragment extends Fragment {
     		in.close();
     		
     		json = new String(buffer);
-    		Log.i("wzy", "loadJson:\n" + json);
+    		//Log.i("wzy", "loadJson:\n" + json);
     	} catch (IOException e) {
     		throw new RuntimeException(e);
     	}*/
@@ -196,7 +193,7 @@ public class LatestTimeLineFragment extends Fragment {
     	 
     };
     
-    private LatestTopicsDataAdapter getAdapter() {
+    private LatestTimeLineAdapter getAdapter() {
     	return v2exAdapter;
     }
     

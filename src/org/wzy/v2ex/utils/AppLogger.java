@@ -4,7 +4,7 @@ package org.wzy.v2ex.utils;
  * Wrapper API for sending log output.
  */
 public class AppLogger {
-    protected static final String TAG = "weiciyuan";
+    protected static final String TAG = "v2ex";
 
     public AppLogger() {
     }
