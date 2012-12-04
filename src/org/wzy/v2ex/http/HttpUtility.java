@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.wzy.v2ex.support.FileDownloaderHttpHelper;
 import org.wzy.v2ex.utils.AppLogger;
 
 import android.util.Log;
@@ -91,6 +92,36 @@ public class HttpUtility {
 		return "";
 	}
 	
+	public boolean executeDownloadTask(String url, String path,
+			FileDownloaderHttpHelper.DownloadListener downloadListener) {
+		return doGetSaveFile(url, path, downloadListener);
+	}
+	
+	private boolean doGetSaveFile(String url, String path,
+			FileDownloaderHttpHelper.DownloadListener downloadListener) {
+		URIBuilder uriBuilder;
+		HttpGet httpGet = new HttpGet();
+		try {
+			uriBuilder = new URIBuilder(url);
+			httpGet.setURI(uriBuilder.build());
+		} catch (URISyntaxException e) {
+			AppLogger.d(e.getMessage());
+		}
+		
+		HttpResponse response = null;
+		try {
+			response = httpClient.execute(httpGet);
+			return FileDownloaderHttpHelper.saveFile(httpGet, response, path, downloadListener);
+		} catch (Exception e) {
+			AppLogger.e(e.getMessage());
+			httpGet.abort();
+		} finally {
+			httpGet.releaseConnection();
+		}
+		
+		return false;
+	}
+	
 	private String doGet(String url) {
 		HttpGet httpGet = new HttpGet();
 		URIBuilder uriBuilder;
@@ -146,7 +177,6 @@ public class HttpUtility {
 		int statusCode = status.getStatusCode();
 		
 		if (statusCode != HttpStatus.SC_OK) {
-			Log.w("wzy1", "handleResponse error");
 			return handleError(httpResponse);
 		}
 		

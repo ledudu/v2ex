@@ -44,7 +44,6 @@ public class AvatarBitmapWorkerTask extends MyAsyncTask<String, Void, Bitmap> {
 		if (view != null) {
 			ImageView imageView = view.get();
 			if (imageView != null) {
-				//AppLogger.i("url:" + url + ", position:" + position);
 				imageView.setTag(url);
 			}
 		}
@@ -53,13 +52,7 @@ public class AvatarBitmapWorkerTask extends MyAsyncTask<String, Void, Bitmap> {
 	@Override
 	protected Bitmap doInBackground(String... url) {
 		if (!isCancelled()) {
-			try {
-				Thread.sleep(1000);
-				//AppLogger.i("url:" + url + ", position:" + position);
-				return ((BitmapDrawable)activity.getResources().getDrawable(R.drawable.ic_launcher)).getBitmap();
-			} catch (InterruptedException e) {
-				AppLogger.i(e.getMessage());
-			}			
+			return ImageTool.getSmallAvatarWithRoundedCorner(this.url);	
 		}
 		return null;
 	}
@@ -79,7 +72,7 @@ public class AvatarBitmapWorkerTask extends MyAsyncTask<String, Void, Bitmap> {
 				ImageView imageView = view.get();
 				AvatarBitmapWorkerTask avatarBitmapWorkerTask = getAvatarBitmapWorkerTask(imageView);
 				if (this == avatarBitmapWorkerTask) {
-					AppLogger.i("put to lrucache, url:" + url + ", position:" + position);
+					AppLogger.i("put to lrucache, url:" + FileManager.getFileFromUrl(this.url, FileLocationMethod.avatar_small) + ", position:" + position);
 					lruCache.put(url, bitmap);
 				}
 			}
