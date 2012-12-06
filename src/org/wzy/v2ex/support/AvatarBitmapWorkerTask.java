@@ -8,9 +8,10 @@ import org.wzy.v2ex.utils.AppLogger;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.LruCache;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 
@@ -72,7 +73,8 @@ public class AvatarBitmapWorkerTask extends MyAsyncTask<String, Void, Bitmap> {
 				ImageView imageView = view.get();
 				AvatarBitmapWorkerTask avatarBitmapWorkerTask = getAvatarBitmapWorkerTask(imageView);
 				if (this == avatarBitmapWorkerTask) {
-					AppLogger.i("put to lrucache, url:" + FileManager.getFileFromUrl(this.url, FileLocationMethod.avatar_small) + ", position:" + position);
+					//AppLogger.i("put to lrucache, url:" + FileManager.getFileFromUrl(this.url, FileLocationMethod.avatar_small) + ", position:" + position);
+					playImageViewAninmation(view.get(), bitmap);
 					lruCache.put(url, bitmap);
 				}
 			}
@@ -91,5 +93,53 @@ public class AvatarBitmapWorkerTask extends MyAsyncTask<String, Void, Bitmap> {
 			}
 		}
 		return null;
+	}
+	
+	private void playImageViewAninmation(final ImageView view, final Bitmap bitmap) {
+		final Animation anim_out = AnimationUtils.loadAnimation(activity, R.anim.timeline_pic_fade_out);
+		final Animation anim_in = AnimationUtils.loadAnimation(activity, R.anim.timeline_pic_fade_in);
+		
+		anim_out.setAnimationListener(new Animation.AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation arg0) {
+				view.setImageBitmap(bitmap);
+				anim_in.setAnimationListener(new Animation.AnimationListener() {
+					
+					@Override
+					public void onAnimationStart(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				view.startAnimation(anim_in);
+			}
+		});
+		
+		view.startAnimation(anim_out);
 	}
 }
