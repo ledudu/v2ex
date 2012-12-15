@@ -7,7 +7,7 @@
 
 V2EX 创意工作者们的社区(http://www.v2ex.com)
 
-四次元
+参考四次元
 ---------
 四次元   好用的weibo客户端(https://github.com/qii/weiciyuan)
 

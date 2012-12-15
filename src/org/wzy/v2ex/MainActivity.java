@@ -3,10 +3,9 @@ package org.wzy.v2ex;
 import org.wzy.v2ex.interfaces.AbstractActivity;
 import org.wzy.v2ex.timeline.LatestTimeLine;
 
+import android.app.ActionBar;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,25 +22,37 @@ public class MainActivity extends AbstractActivity {
      * keep every loaded fragment in memory. If this becomes too memory intensive, it may be best
      * to switch to a {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    //SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager mViewPager;
+    //ViewPager mViewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_v2ex);
+        //setContentView(R.layout.activity_v2ex);
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
+        //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ActionBar actionbar = getActionBar();
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionbar.setDisplayShowHomeEnabled(false);
+        actionbar.setDisplayShowTitleEnabled(false);
+        
+        ActionBar.Tab tab = actionbar.newTab().setText(R.string.title_section1)
+        		.setTabListener(new TabListener<LatestTimeLine>(this, "current", LatestTimeLine.class));
+        actionbar.addTab(tab);
+        
+        tab = actionbar.newTab()
+        		.setText(R.string.title_section2)
+        		.setTabListener(new TabListener<DummySectionFragment>(this, "section2", DummySectionFragment.class));
+        actionbar.addTab(tab);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        //mViewPager = (ViewPager) findViewById(R.id.pager);
+        //mViewPager.setAdapter(mSectionsPagerAdapter);
      }
 
     @Override
@@ -54,7 +65,7 @@ public class MainActivity extends AbstractActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
      * sections of the app.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+/*    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -92,7 +103,7 @@ public class MainActivity extends AbstractActivity {
             }
             return null;
         }
-    }
+    }*/
 
     /**
      * A dummy fragment representing a section of the app, but that simply displays dummy text.
@@ -108,9 +119,13 @@ public class MainActivity extends AbstractActivity {
                 Bundle savedInstanceState) {
             TextView textView = new TextView(getActivity());
             textView.setGravity(Gravity.CENTER);
-            Bundle args = getArguments();
-            textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
+            textView.setText(getTag());
+            //Bundle args = getArguments();
+            //textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
             return textView;
         }
-    } 
+    }
+    
+    
+    
 }
