@@ -11,7 +11,9 @@
     <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/avatar"
             android:layout_width="48dp"
-            android:layout_height="48dp"/>
+            android:layout_height="48dp"
+            android:padding="1dp"
+            android:background="@drawable/bg_border"/>
     <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"

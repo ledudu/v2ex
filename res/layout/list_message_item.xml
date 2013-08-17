@@ -6,10 +6,12 @@
                 android:padding="10dp">
     <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/avatar"
+            android:padding="1dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_border"/>
     <TextView
             android:id="@+id/reply_count"
             android:layout_width="wrap_content"
