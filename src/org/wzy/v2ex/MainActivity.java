@@ -61,49 +61,7 @@ public class MainActivity extends AbstractActivity {
         return true;
     }
     
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
-     * sections of the app.
-     */
-/*    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-        	Fragment fragment = null;
-        	switch (i) {
-        	case 0:
-        		fragment = new LatestTimeLine();
-        		break;
-        	case 1:
-        	case 2:
-        		fragment = new DummySectionFragment();
-        		Bundle args = new Bundle();
-                args.putInt(LatestTimeLine.ARG_SECTION_NUMBER, i + 1);
-                fragment.setArguments(args);
-                break;
-        	}
-        	return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0: return getString(R.string.title_section1).toUpperCase();
-                case 1: return getString(R.string.title_section2).toUpperCase();
-                case 2: return getString(R.string.title_section3).toUpperCase();
-            }
-            return null;
-        }
-    }*/
 
     /**
      * A dummy fragment representing a section of the app, but that simply displays dummy text.

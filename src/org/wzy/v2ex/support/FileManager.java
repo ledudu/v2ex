@@ -13,10 +13,12 @@ public class FileManager {
 	
 	private static String getSdCardPath() {
 		if (isExternalStorageMounted()) {
+            if (GlobalContext.getInstance().getExternalCacheDir() != null)
 			return GlobalContext.getInstance().getExternalCacheDir().getAbsolutePath();
 		} else {
 			return "";
 		}
+        return "";
 	}
 	
 	public static boolean isExternalStorageMounted() {

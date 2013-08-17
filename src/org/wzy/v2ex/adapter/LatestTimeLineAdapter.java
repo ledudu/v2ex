@@ -62,10 +62,6 @@ public class LatestTimeLineAdapter extends BaseAdapter {
 		mCommander.downloadAvatar(avatar, mMessages.get(position).getMember().getAvatarNormal(),
 				position,
 				((LatestTimeLine)mFragment).isListViewFling());
-		//avatar.setBackgroundResource(R.drawable.avatar);
-		//if (!((LatestTimeLine)mFragment).isListViewFling()) {			
-		//	avatar.setImageDrawable(parent.getResources().getDrawable(R.drawable.ic_launcher));
-		//}
 		TextView username = (TextView) convertView.findViewById(R.id.username);
 		if (mMessages != null) {
 			String name = mMessages.get(position).getMember().getUserName();			
