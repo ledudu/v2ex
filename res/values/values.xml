@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nodes_name">
+        <item>programmer</item>
+        <item>create</item>
+        <item>share</item>
+        <item>jobs</item>
+        <item>all4all</item>
+        <item>beijing</item>
+        <item>qna</item>
+        <item>latest</item>
+    </string-array>
+</resources>

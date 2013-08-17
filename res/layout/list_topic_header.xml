@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="10dp">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/avatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"/>
+        <TextView android:id="@+id/topic_title"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentLeft="true"
+                  android:layout_toLeftOf="@id/avatar"
+                  android:singleLine="false"
+                  style="@android:style/TextAppearance.Medium"/>
+        <TextView android:id="@+id/author_name"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/topic_title"
+                  android:layout_marginRight="5dp"/>
+        <TextView android:id="@+id/time"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_toRightOf="@id/author_name"
+                  android:layout_alignTop="@id/author_name"
+                  android:layout_marginLeft="5dp"/>
+    </RelativeLayout>
+
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#888"/>
+    <TextView android:id="@+id/topic_content"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="48dp"
+              android:singleLine="false"
+              style="@android:style/TextAppearance.Small"
+              android:layout_marginTop="10dp"
+              android:layout_marginBottom="10dp"/>
+</LinearLayout>
