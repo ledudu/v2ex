@@ -15,7 +15,6 @@ local.properties
 .classpath
 .settings/
 .loadpath
-.idea/
 
 # External tool builders
 .externalToolBuilders/
@@ -166,3 +165,8 @@ pip-log.txt
 #eclipse
 gen/
 .classpath
+
+#idea
+out/
+*.iml
+.idea/

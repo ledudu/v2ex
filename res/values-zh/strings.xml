@@ -13,4 +13,15 @@
 	<string name="minute">%d分钟前</string>
 	<string name="second">%d秒钟前</string>
 	<string name="current">刚刚</string>
+	<string-array name="nodes">
+        <item>技术</item>
+        <item>创意</item>
+        <item>好玩</item>
+        <item>酷工作</item>
+        <item>二手</item>
+        <item>城市</item>
+        <item>问与答</item>
+        <item>最新</item>
+        <item>全部</item>
+    </string-array>
 </resources>

@@ -8,5 +8,16 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_refresh">Refresh</string>
     <string name="title_activity_v2ex">v2ex</string>
+    <string-array name="nodes">
+        <item>Technical</item>
+        <item>Createtive</item>
+        <item>Funny</item>
+        <item>Cool Work</item>
+        <item>Sencond hand</item>
+        <item>City</item>
+        <item>QA</item>
+        <item>Hotest</item>
+        <item>All</item>
+    </string-array>
 
 </resources>

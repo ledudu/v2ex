@@ -3,9 +3,6 @@ package org.wzy.v2ex.support;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-import org.wzy.v2ex.R;
-import org.wzy.v2ex.utils.AppLogger;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -13,6 +10,7 @@ import android.util.LruCache;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import org.wzy.v2ex.R;
 
 
 public class AvatarBitmapWorkerTask extends MyAsyncTask<String, Void, Bitmap> {
