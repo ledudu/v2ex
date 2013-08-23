@@ -1,5 +1,22 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" />
+    <style name="AppTheme" parent="android:Theme.Holo.Light" />
+
+    <style name="NodeList" parent="@android:style/Widget.Holo.ListView">
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:choiceMode">singleChoice</item>
+        <item name="android:background">#fff3f3f3</item>
+    </style>
+
+    <style name="NodeItem" >
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="android:background">?android:attr/activatedBackgroundIndicator</item>
+    </style>
+
 
 </resources>

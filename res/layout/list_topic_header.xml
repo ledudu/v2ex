@@ -12,13 +12,13 @@
                 android:padding="1dp"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginBottom="2dp"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/bg_border"/>
         <TextView android:id="@+id/topic_title"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_alignParentLeft="true"
+                  android:layout_alignTop="@id/avatar"
                   android:layout_toLeftOf="@id/avatar"
                   android:singleLine="false"
                   style="@android:style/TextAppearance.Medium"/>
@@ -26,18 +26,22 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_below="@id/topic_title"
+                  android:layout_alignParentLeft="true"
+                  android:layout_alignParentBottom="true"
                   android:layout_marginRight="5dp"/>
         <TextView android:id="@+id/time"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_toRightOf="@id/author_name"
                   android:layout_alignTop="@id/author_name"
+                  android:layout_alignParentBottom="true"
                   android:layout_marginLeft="5dp"/>
     </RelativeLayout>
 
     <ImageView android:layout_width="match_parent"
                android:layout_height="1dp"
-               android:background="#888"/>
+               android:background="#888"
+               android:layout_marginTop="5dp"/>
     <TextView android:id="@+id/topic_content"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
