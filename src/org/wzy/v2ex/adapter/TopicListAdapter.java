@@ -1,6 +1,7 @@
 package org.wzy.v2ex.adapter;
 
 import android.content.Context;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,14 @@ public class TopicListAdapter extends BaseAdapter{
             hodler.content.setText(mReplyList.get(position).content);
             hodler.author_name.setText(mReplyList.get(position).member.getUserName());
             hodler.time.setText(Utils.getTime(Long.parseLong(mReplyList.get(position).created)));
+
+            setLinkText(hodler.content);
         }
         return convertView;
+    }
+
+    private void setLinkText(TextView textView) {
+        Linkify.addLinks(textView, Linkify.WEB_URLS);
     }
 
     private class ViewHodler {

@@ -65,7 +65,7 @@ public class ContentFragment extends Fragment implements AdapterView.OnItemClick
         mMessageBeanList = new ArrayList<MessageBean>();
         mRequestQueue = Volley.newRequestQueue(context);
         mImageCache = BitmapCache.getBitmapCache();
-        AppLogger.d("new ContentFragment, context:" + context);
+        AppLogger.d("new ContentFragment, context:" + context + ", mMessageBeanList:" + mMessageBeanList);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ContentFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
-        AppLogger.d("ContentFragment, onCreateVIew");
+        AppLogger.d("ContentFragment, onCreateView");
         mListView = (ListView) view.findViewById(R.id.listview);
         mAdapter = new MessageListAdapter(mContext,
                 mMessageBeanList,

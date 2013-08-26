@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import org.wzy.v2ex.R;
 import org.wzy.v2ex.adapter.TopicListAdapter;
 import org.wzy.v2ex.bean.ReplyBean;
 import org.wzy.v2ex.bean.TopicBean;
+import org.wzy.v2ex.utils.AppLogger;
 import org.wzy.v2ex.utils.BitmapCache;
 import org.wzy.v2ex.utils.URL;
 import org.wzy.v2ex.utils.Utils;
@@ -96,7 +98,7 @@ public class TopicActivity extends Activity {
                 mTopicList.clear();
                 mTopicList.addAll((ArrayList<TopicBean>) new Gson().fromJson(response.toString(), type));
                 for (TopicBean bean : mTopicList)
-                    Log.d("v2ex", "topic:" + bean);
+                    AppLogger.d("topic:" + bean);
                 TopicBean topicBean = mTopicList.get(0);
                 NetworkImageView imageView = (NetworkImageView) mHeaderView.findViewById(R.id.avatar);
 
@@ -113,6 +115,9 @@ public class TopicActivity extends Activity {
                 author_name.setText(topicBean.member.getUserName());
                 time.setText(Utils.getTime(Long.parseLong(topicBean.created)));
                 showProgressBar(false);
+
+                setLinkText(title);
+                setLinkText(content);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -132,7 +137,7 @@ public class TopicActivity extends Activity {
                 mReplyList.clear();
                 mReplyList.addAll((ArrayList<ReplyBean>) new Gson().fromJson(response.toString(), type));
                 for (ReplyBean bean : mReplyList)
-                    Log.d("v2ex", "reply:" + bean);
+                    AppLogger.d("reply:" + bean);
                 mAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
@@ -147,6 +152,10 @@ public class TopicActivity extends Activity {
     private void showProgressBar(boolean show) {
         mProgressBarLayout.setVisibility(show ? View.VISIBLE : View.GONE);
         mListView.setVisibility(show ? View.GONE : View.VISIBLE);
+    }
+
+    private void setLinkText(TextView textView) {
+        Linkify.addLinks(textView, Linkify.WEB_URLS);
     }
 
 }
