@@ -1,9 +1,11 @@
 package org.wzy.v2ex.ui.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -52,6 +54,8 @@ public class TopicActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         mListView = (ListView) findViewById(R.id.content);
         mProgressBarLayout = (FrameLayout) findViewById(R.id.progressbar_layout);
         mHeaderView = getLayoutInflater().inflate(R.layout.list_topic_header, mListView, false);
@@ -71,6 +75,17 @@ public class TopicActivity extends Activity {
         showProgressBar(true);
         getTopicContent(topicUrl);
         getReplyContent(replyUrl);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onMenuItemSelected(featureId, item);
+        }
     }
 
     private void getTopicContent(String url) {

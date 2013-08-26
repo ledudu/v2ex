@@ -27,6 +27,7 @@ import org.wzy.v2ex.adapter.MessageListAdapter;
 import org.wzy.v2ex.bean.MessageBean;
 import org.wzy.v2ex.ui.activity.MyActivity;
 import org.wzy.v2ex.ui.activity.TopicActivity;
+import org.wzy.v2ex.utils.AppLogger;
 import org.wzy.v2ex.utils.BitmapCache;
 import org.wzy.v2ex.utils.URL;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
@@ -55,6 +56,7 @@ public class ContentFragment extends Fragment implements AdapterView.OnItemClick
 
     public ContentFragment() {
         super();
+        AppLogger.d("new ContentFragment");
     }
 
     public ContentFragment(Context context) {
@@ -63,7 +65,7 @@ public class ContentFragment extends Fragment implements AdapterView.OnItemClick
         mMessageBeanList = new ArrayList<MessageBean>();
         mRequestQueue = Volley.newRequestQueue(context);
         mImageCache = BitmapCache.getBitmapCache();
-        Log.d("ContentFragment", mRequestQueue.toString());
+        AppLogger.d("new ContentFragment, context:" + context);
     }
 
     @Override
@@ -83,6 +85,7 @@ public class ContentFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
+        AppLogger.d("ContentFragment, onCreateVIew");
         mListView = (ListView) view.findViewById(R.id.listview);
         mAdapter = new MessageListAdapter(mContext,
                 mMessageBeanList,
@@ -91,7 +94,6 @@ public class ContentFragment extends Fragment implements AdapterView.OnItemClick
                 TextUtils.equals(mUrl, URL.LATEST_URL));
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
-        Log.d("ContentFragment", mUrl);
         mPullToRefreshAttacher = ((MyActivity) getActivity()).getmPullToRefreshAttacher();
         mPullToRefreshAttacher.addRefreshableView(mListView, this);
 

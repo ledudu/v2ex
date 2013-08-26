@@ -1,6 +1,7 @@
 package org.wzy.v2ex.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import org.wzy.v2ex.R;
 import org.wzy.v2ex.bean.MessageBean;
+import org.wzy.v2ex.utils.AppLogger;
 import org.wzy.v2ex.utils.Utils;
 
 import java.util.List;
@@ -38,6 +40,7 @@ public class MessageListAdapter extends BaseAdapter {
         mRequestQueue = requestQueue;
         mImageCache = imageCache;
         mIsHotest = isHotest;
+        AppLogger.d("new MessagListAdapter, mMessageList:" + mMessageList);
     }
 
     @Override
