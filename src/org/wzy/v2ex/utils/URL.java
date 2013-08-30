@@ -12,4 +12,5 @@ public class URL {
     public static final String NODE_URL = API_HOST_URL + "/api/topics/show.json?node_name=%s";
     public static final String TOPIC_URL = API_HOST_URL + "/api/topics/show.json?id=%d";
     public static final String REPLY_URL = API_HOST_URL + "/api/replies/show.json?topic_id=%d";
+    public static final String USER_INFO_URL = API_HOST_URL + "/api/members/show.json?username=%s";
 }

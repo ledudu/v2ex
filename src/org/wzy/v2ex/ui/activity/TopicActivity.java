@@ -99,7 +99,7 @@ public class TopicActivity extends Activity {
                 mTopicList.addAll((ArrayList<TopicBean>) new Gson().fromJson(response.toString(), type));
                 for (TopicBean bean : mTopicList)
                     AppLogger.d("topic:" + bean);
-                TopicBean topicBean = mTopicList.get(0);
+                final TopicBean topicBean = mTopicList.get(0);
                 NetworkImageView imageView = (NetworkImageView) mHeaderView.findViewById(R.id.avatar);
 
                 TextView title = (TextView) mHeaderView.findViewById(R.id.topic_title);
@@ -110,6 +110,12 @@ public class TopicActivity extends Activity {
                 imageView.setDefaultImageResId(android.R.drawable.dialog_frame);
                 imageView.setErrorImageResId(android.R.drawable.alert_light_frame);
                 imageView.setImageUrl(topicBean.member.getAvatarNormal(), new ImageLoader(mRequestQueue, BitmapCache.getBitmapCache()));
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startUserInfoActivity(topicBean.member.getUserName());
+                    }
+                });
                 title.setText(topicBean.title);
                 content.setText(topicBean.content);
                 author_name.setText(topicBean.member.getUserName());
@@ -156,6 +162,12 @@ public class TopicActivity extends Activity {
 
     private void setLinkText(TextView textView) {
         Linkify.addLinks(textView, Linkify.WEB_URLS);
+    }
+
+    private void startUserInfoActivity(String userName) {
+        Intent intent = new Intent(this, UserInfoActivity.class);
+        intent.putExtra("username", userName);
+        startActivity(intent);
     }
 
 }

@@ -1,6 +1,7 @@
 package org.wzy.v2ex.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import org.wzy.v2ex.R;
 import org.wzy.v2ex.bean.ReplyBean;
+import org.wzy.v2ex.ui.activity.UserInfoActivity;
 import org.wzy.v2ex.utils.Utils;
 
 import java.util.List;
@@ -56,6 +58,7 @@ public class TopicListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHodler hodler;
+        final int index = position;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_topic_item, parent, false);
@@ -74,6 +77,12 @@ public class TopicListAdapter extends BaseAdapter{
             hodler.avatar.setErrorImageResId(android.R.drawable.alert_light_frame);
             hodler.avatar.setImageUrl(mReplyList.get(position).member.getAvatarNormal(),
                     new ImageLoader(mRequestQueue, mImageCache));
+            hodler.avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startUserInfoActivity(mReplyList.get(index).member.getUserName());
+                }
+            });
             hodler.content.setText(mReplyList.get(position).content);
             hodler.author_name.setText(mReplyList.get(position).member.getUserName());
             hodler.time.setText(Utils.getTime(Long.parseLong(mReplyList.get(position).created)));
@@ -85,6 +94,12 @@ public class TopicListAdapter extends BaseAdapter{
 
     private void setLinkText(TextView textView) {
         Linkify.addLinks(textView, Linkify.WEB_URLS);
+    }
+
+    private void startUserInfoActivity(String userName) {
+        Intent intent = new Intent(mContext, UserInfoActivity.class);
+        intent.putExtra("username", userName);
+        mContext.startActivity(intent);
     }
 
     private class ViewHodler {
